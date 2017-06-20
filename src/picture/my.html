@@ -1,0 +1,53 @@
+<html>
+ <head>
+  <title> 动态添加删除网址 </title>
+  <meta charset="utf-8">
+  <script>
+        function add(){
+            var name = document.getElementById("name").value;
+            var url = document.getElementById("url").value;
+            var list = document.getElementById("list");
+            //动态创建节点
+            var link = document.createElement("a");
+            link.setAttribute("href",url);  //设置属性
+            link.innerHTML = name;
+            //增加删除的按钮
+            var button = document.createElement("input");
+            button.setAttribute("type","button");
+            button.value = "  删除";
+            /**
+                (1).event对象表示对象的状态，提供了对象的相关细节,IE浏览器被
+                存储在 Window 对象的 event 属性中。
+                (2).srcElement属性是对于生成事件的 Window 对象、Document 对象或 Element 对象的引用
+                (3).parentNode 属性返回指定节点的父节点。
+                (4).removeChild() 方法删除子节点。
+            **/
+            button.onclick = function(event){
+                var target;
+                if (event == null)
+                {
+                    target = window.event.srcElement;
+                }else{
+                    target = event.target;
+                }
+                var div = target.parentNode;
+                div.parentNode.removeChild(div);
+                alert("删除成功");
+            }
+            //添加生成的内容
+            var div = document.createElement("div");
+            div.appendChild(button);
+            div.insertBefore(link,button);
+            list.appendChild(div);
+            }
+  </script>
+ </head>
+ <body>
+ <hr>
+  站点名称：<input type="text" name="name" id="name">
+  网址：<input type="text" name="url" id="url">
+  <input type="button" value="增加" onclick="add()">
+  <div id="list">
+  </div>
+ </body>
+</html>
